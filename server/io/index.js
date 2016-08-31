@@ -8,8 +8,10 @@ module.exports = function (server) {
 
     io = socketio(server);
 
-    io.on('connection', function () {
-        // Now have access to socket, wowzers!
+    io.on('connection', function (socket) {
+        socket.on('stream', function(image) {
+            io.sockets.emit('serverStream', image);
+        });
     });
     
     return io;
